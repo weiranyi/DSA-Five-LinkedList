@@ -17,7 +17,7 @@ public class LinkedList<E> {
             this.next = next;
         }
 
-        public Node(E e) {
+        Node(E e) {
             this(e, null);
         }
 
