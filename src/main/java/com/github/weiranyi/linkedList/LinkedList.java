@@ -17,7 +17,7 @@ public class LinkedList<E> {
             this.next = next;
         }
 
-        Node(E e) {
+        public Node(E e) {
             this(e, null);
         }
 
@@ -73,9 +73,7 @@ public class LinkedList<E> {
         for (int i = 0; i < index; i++) {
             prev = prev.next;
         }
-//             Node node = new Node(e);
-//            node.next = prev.next;
-//            prev.next = node;
+
         prev.next = new Node(e, prev.next);
         size++;
     }
@@ -128,6 +126,58 @@ public class LinkedList<E> {
             cur = cur.next;
         }
         return false;
+    }
+
+    // 从链表中删除index(0-based)位置的元素, 返回删除的元素
+    // 在链表中不是一个常用的操作，练习用：）
+    public E remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Remove failed. Index is illegal.");
+        }
+        // E ret = findNode(index).e; // 两次遍历
+        Node prev = dummyhead;
+        for (int i = 0; i < index; i++) {
+            prev = prev.next;
+        }
+
+        // 为了返回删除的节点信息，需要设置这个变量
+        Node retNode = prev.next;
+        // 将删除节点的前一个节点的指针设置为删除节点的指针
+        prev.next = retNode.next;
+        // 将删除节点设置为空，等待垃圾回收机制
+        retNode.next = null;
+        // 删除后维护size变量
+        size--;
+
+        return retNode.e;
+    }
+
+    // 从链表中删除第一个元素, 返回删除的元素
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    // 从链表中删除最后一个元素, 返回删除的元素
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
+    // 从链表中删除元素e
+    public void removeElement(E e) {
+        Node prev = dummyhead;
+        while (prev.next != null) {
+            if (prev.next.e.equals(e)) {
+                break;
+            }
+            prev = prev.next;
+        }
+
+        if (prev.next != null) {
+            Node delNode = prev.next;
+            prev.next = delNode.next;
+            delNode.next = null;
+            size--;
+        }
     }
 
     @Override
