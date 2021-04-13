@@ -1,6 +1,7 @@
 package com.github.weiranyi;
 
-import com.github.weiranyi.array.ArrayStack;
+import com.github.weiranyi.queues.LinkListQueue;
+import com.github.weiranyi.stacks.ArrayStack;
 import com.github.weiranyi.linkedList.LinkedList;
 import com.github.weiranyi.linkedList.LinkedListStack;
 import com.github.weiranyi.stacks.Stack;
@@ -40,6 +41,7 @@ public class SmokeTest {
         linkedListStack.pop();
         System.out.println(linkedListStack);
 
+        // 算法性能测试
         int opCount = 100000;
 
         ArrayStack<Integer> arrayStack = new ArrayStack<>();
@@ -49,6 +51,21 @@ public class SmokeTest {
         LinkedListStack<Integer> linkedListStack1 = new LinkedListStack<>();
         double time2 = testStack(linkedListStack1, opCount);
         System.out.println("LinkedListStack, time: " + time2 + " s");
+        LinkListQueue<Integer> LinkListqueue = new LinkListQueue<>();
+
+        // LinkListQueue的测试用例
+        LinkListQueue<Integer> queue = new LinkListQueue<>();
+        for (int i = 0; i < 10; i++) {
+            queue.enqueue(i);
+            System.out.println(queue);
+
+            if (i % 3 == 2) {
+                queue.dequeue();
+                System.out.println(queue);
+            }
+        }
+
+
     }
 
     // 测试使用stack运行opCount个push和pop操作所需要的时间，单位：秒
